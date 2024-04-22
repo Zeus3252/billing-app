@@ -34,7 +34,7 @@ const PaymentSubmit = () => {
     if (!isNaN(cleanedInput)) {
       const formattedInput = formatter.format(parseFloat(cleanedInput));
       e.target.value = formattedInput;
-      setPaymentAmount(formattedInput.replace(/[^\d.]/g, ""));
+      setPaymentAmount(formattedInput.replace(/[^\d.]/g, "")); //is this necessary?
     }
   }
 
