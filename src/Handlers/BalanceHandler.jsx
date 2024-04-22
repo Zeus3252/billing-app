@@ -1,4 +1,4 @@
-export async function getBalance(accountID, setBalance, formatter) {
+export async function getBalance(accountID, setBalance, formatter, setError) {
   const apiToken = sessionStorage.getItem("token");
 
   try {
@@ -16,12 +16,15 @@ export async function getBalance(accountID, setBalance, formatter) {
     );
 
     const result = await response.json();
-    if (result.length === 0) {
-      return null;
+
+    if (!response.ok) {
+      setError(result.error.message);
+      return;
     }
+
     setBalance(formatter.format(result.balance));
   } catch (error) {
     console.error(error);
-    return null;
+    return;
   }
 }

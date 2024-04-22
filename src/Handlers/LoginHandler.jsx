@@ -31,12 +31,14 @@ export async function authenticateUser(
         },
       }
     );
+
     const result = await response.json();
 
     if (!response.ok) {
       setError(result.error.message);
       return;
     }
+
     sessionStorage.setItem("token", result.token);
     setIsAuthenticated(true);
     setUsername("");
@@ -44,5 +46,6 @@ export async function authenticateUser(
     navigate("/account");
   } catch (error) {
     setError("Unable to connect. Please check your network settings.");
+    return;
   }
 }

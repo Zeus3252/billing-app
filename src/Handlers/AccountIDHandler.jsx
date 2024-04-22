@@ -27,11 +27,18 @@ export async function AccountIDHandler(
     );
 
     const result = await response.json();
+
+    if (!response.ok) {
+      setError(result.error.message);
+      return;
+    }
+
     setAccountID(result[0].id);
     {
       result.message != false && navigate("/payment");
     }
   } catch (error) {
     setError("Invalid Account Number associated with this account");
+    return;
   }
 }

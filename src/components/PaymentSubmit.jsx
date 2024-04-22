@@ -8,17 +8,17 @@ const PaymentSubmit = () => {
     accountID,
     setPaymentAmount,
     paymentAmount,
-    setError,
     balance,
     accountNumber,
     setBalance,
     setModal,
     formatter,
+    setError,
   } = useContext(AppContext);
 
   useEffect(() => {
     setError("");
-    getBalance(accountID, setBalance, formatter);
+    getBalance(accountID, setBalance, formatter, setError);
   }, []);
 
   function handleInputChange(e) {
@@ -30,9 +30,11 @@ const PaymentSubmit = () => {
   }
 
   function handleInputBlur(e) {
-    const cleanedInput = e.target.value.replace(/[$,]/g, "");
+    const cleanedInput = e.target.value.replace(/[^\d.]/g, "");
     if (!isNaN(cleanedInput)) {
-      e.target.value = formatter.format(cleanedInput);
+      const formattedInput = formatter.format(parseFloat(cleanedInput));
+      e.target.value = formattedInput;
+      setPaymentAmount(formattedInput.replace(/[^\d.]/g, ""));
     }
   }
 

@@ -21,6 +21,10 @@ function AccountNumber() {
     }
   }
 
+  function handleOnBlur(e) {
+    e.target.value = e.target.value.replace(/\D/g, "");
+  }
+
   useEffect(() => {
     setError("");
     setAccountNumber(null);
@@ -44,7 +48,7 @@ function AccountNumber() {
             onChange={(e) => {
               handleInputChange(e);
             }}
-            onBlur={(e) => (e.target.value = e.target.value.replace(/\D/g, ""))}
+            onBlur={(e) => handleOnBlur(e)}
           />
         </form>
         <div>

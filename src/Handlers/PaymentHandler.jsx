@@ -31,14 +31,18 @@ export async function PaymentHandler(
         body: JSON.stringify(payload),
       }
     );
+
     const result = await response.json();
+
     if (!response.ok) {
       setError(result.error.message);
       return;
     }
+
     setTransactionComplete(true);
     navigate("/paymentcomplete");
   } catch (error) {
     setError("Unable to connect. Please check your network settings.");
+    return;
   }
 }
