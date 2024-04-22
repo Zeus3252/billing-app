@@ -8,8 +8,6 @@ import PaymentComplete from "./components/PaymentComplete";
 import NavBar from "./components/NavBar";
 import "./App.css";
 
-console.log(sessionStorage.getItem("token"));
-
 function App() {
   return (
     <div>

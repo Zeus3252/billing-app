@@ -2,8 +2,14 @@ import { useEffect, useContext } from "react";
 import AppContext from "../../context/AppContext";
 
 function PaymentComplete() {
-  const { balance, paymentAmount, formatter, newBalance, setNewBalance } =
-    useContext(AppContext);
+  const {
+    balance,
+    paymentAmount,
+    formatter,
+    newBalance,
+    setNewBalance,
+    setModal,
+  } = useContext(AppContext);
 
   useEffect(() => {
     const cleanedBalance = parseFloat(balance.replace(/[$,]/g, ""));

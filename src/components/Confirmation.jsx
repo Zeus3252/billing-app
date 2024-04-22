@@ -10,7 +10,8 @@ function Confirmation() {
   function getPaymentHandler() {
     {
       modal &&
-        PaymentHandler(format, paymentAmount, accountID, navigate, setError);
+        PaymentHandler(format, paymentAmount, accountID, navigate, setError) &&
+        setModal(false);
     }
   }
 
