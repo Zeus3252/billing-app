@@ -4,7 +4,8 @@ export async function authenticateUser(
   setError,
   navigate,
   setUsername,
-  setPassword
+  setPassword,
+  setIsAuthenticated
 ) {
   setError("");
   const regex = /^[a-zA-Z0-9._\-!]+$/;
@@ -37,6 +38,7 @@ export async function authenticateUser(
       return;
     }
     sessionStorage.setItem("token", result.token);
+    setIsAuthenticated(true);
     setUsername("");
     setPassword("");
     navigate("/account");

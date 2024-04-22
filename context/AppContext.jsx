@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [transactionComplete, setTransactionComplete] = useState(false);
   const [accountNumber, setAccountNumber] = useState(null);
   const [accountID, setAccountID] = useState(null);
   const [username, setUsername] = useState(null);
@@ -22,7 +24,14 @@ export const AppProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    const apiToken = sessionStorage.getItem("token");
+    setIsAuthenticated(!!apiToken);
+  }, []);
+
+  useEffect(() => {
     if (location.pathname === "/") {
+      setIsAuthenticated(false);
+      setTransactionComplete(false);
       setAccountNumber(null);
       setAccountID(null);
       setUsername(null);
@@ -38,6 +47,10 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        transactionComplete,
+        setTransactionComplete,
         accountNumber,
         setAccountNumber,
         accountID,
@@ -58,6 +71,7 @@ export const AppProvider = ({ children }) => {
         setModal,
         navigate,
         formatter,
+        location,
       }}
     >
       {children}

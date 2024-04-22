@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
+import { getBalance } from "../handlers/BalanceHandler";
 import AppContext from "../../context/AppContext";
-import { getBalance } from "../Handlers/BalanceHandler";
 import Confirmation from "./Confirmation";
 
 const PaymentSubmit = () => {
@@ -17,6 +17,7 @@ const PaymentSubmit = () => {
   } = useContext(AppContext);
 
   useEffect(() => {
+    setError("");
     getBalance(accountID, setBalance, formatter);
   }, []);
 
@@ -59,9 +60,8 @@ const PaymentSubmit = () => {
             className="nextButton"
             onClick={() => {
               {
-                console.log(parseFloat(paymentAmount));
                 paymentAmount != null &&
-                parseFloat(paymentAmount) < 10000 &&
+                parseFloat(paymentAmount) < 10001 &&
                 parseFloat(paymentAmount) > 0
                   ? (setError(""), setModal(true))
                   : setError("Please enter a valid amount");

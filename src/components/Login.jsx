@@ -1,11 +1,18 @@
 import { useContext } from "react";
+import { authenticateUser } from "../handlers/LoginHandler";
 import AppContext from "../../context/AppContext";
-import { authenticateUser } from "../Handlers/LoginHandler";
 
 function Login() {
   sessionStorage.removeItem("token");
-  const { setUsername, setPassword, username, password, setError, navigate } =
-    useContext(AppContext);
+  const {
+    setUsername,
+    setPassword,
+    username,
+    password,
+    setError,
+    navigate,
+    setIsAuthenticated,
+  } = useContext(AppContext);
 
   return (
     <div>
@@ -48,7 +55,8 @@ function Login() {
                 setError,
                 navigate,
                 setUsername,
-                setPassword
+                setPassword,
+                setIsAuthenticated
               );
           }}
         >

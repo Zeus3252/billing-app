@@ -3,7 +3,8 @@ export async function PaymentHandler(
   paymentAmount,
   accountID,
   navigate,
-  setError
+  setError,
+  setTransactionComplete
 ) {
   const apiToken = sessionStorage.getItem("token");
   const GENERATED_REFERENCE = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
@@ -35,6 +36,7 @@ export async function PaymentHandler(
       setError(result.error.message);
       return;
     }
+    setTransactionComplete(true);
     navigate("/paymentcomplete");
   } catch (error) {
     setError("Unable to connect. Please check your network settings.");

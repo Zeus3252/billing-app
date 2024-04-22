@@ -1,16 +1,30 @@
-import AppContext from "../../context/AppContext";
 import { useContext } from "react";
-import { PaymentHandler } from "../Handlers/PaymentHandler";
+import { PaymentHandler } from "../handlers/PaymentHandler";
 import { format } from "date-fns";
+import AppContext from "../../context/AppContext";
 
 function Confirmation() {
-  const { modal, setModal, paymentAmount, accountID, navigate, setError } =
-    useContext(AppContext);
+  const {
+    modal,
+    setModal,
+    paymentAmount,
+    accountID,
+    navigate,
+    setError,
+    setTransactionComplete,
+  } = useContext(AppContext);
 
   function getPaymentHandler() {
     {
       modal &&
-        PaymentHandler(format, paymentAmount, accountID, navigate, setError) &&
+        PaymentHandler(
+          format,
+          paymentAmount,
+          accountID,
+          navigate,
+          setError,
+          setTransactionComplete
+        ) &&
         setModal(false);
     }
   }

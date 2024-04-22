@@ -1,10 +1,16 @@
-import { useContext } from "react";
-import { AccountIDHandler } from "../Handlers/AccountIDHandler";
+import { useContext, useEffect } from "react";
+import { AccountIDHandler } from "../handlers/AccountIDHandler";
 import AppContext from "../../context/AppContext";
 
 function AccountNumber() {
-  const { accountNumber, setAccountNumber, setAccountID, setError, navigate } =
-    useContext(AppContext);
+  const {
+    accountNumber,
+    setAccountNumber,
+    setAccountID,
+    setError,
+    navigate,
+    setPaymentAmount,
+  } = useContext(AppContext);
 
   function handleInputChange(e) {
     e.target.value = e.target.value.replace(/[^\d]/g, "");
@@ -13,6 +19,13 @@ function AccountNumber() {
       setAccountNumber(cleanedInput);
     }
   }
+
+  useEffect(() => {
+    setError("");
+    setAccountNumber(null);
+    setAccountID(null);
+    setPaymentAmount(null);
+  }, []);
 
   return (
     <div>
