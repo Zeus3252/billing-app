@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { getBalance } from "../handlers/BalanceHandler";
-import AppContext from "../../context/AppContext";
+import AppContext from "../context/AppContext";
 import Confirmation from "./Confirmation";
 
 const PaymentSubmit = () => {
@@ -36,6 +36,16 @@ const PaymentSubmit = () => {
     }
   }
 
+  function handleConfirmButton() {
+    {
+      if (paymentAmount != null) {
+        parseFloat(paymentAmount) < 10001 && parseFloat(paymentAmount) > 0
+          ? (setError(""), setModal(true))
+          : setError("Please enter a valid amount");
+      }
+    }
+  }
+
   return (
     <div>
       <h2 className="mediumText">Your Account Number: {accountNumber}</h2>
@@ -59,13 +69,7 @@ const PaymentSubmit = () => {
           <button
             className="nextButton"
             onClick={() => {
-              {
-                paymentAmount != null &&
-                parseFloat(paymentAmount) < 10001 &&
-                parseFloat(paymentAmount) > 0
-                  ? (setError(""), setModal(true))
-                  : setError("Please enter a valid amount");
-              }
+              handleConfirmButton();
             }}
           >
             Make Payment

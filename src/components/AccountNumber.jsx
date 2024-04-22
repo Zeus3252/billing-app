@@ -1,15 +1,16 @@
 import { useContext, useEffect } from "react";
 import { AccountIDHandler } from "../handlers/AccountIDHandler";
-import AppContext from "../../context/AppContext";
+import AppContext from "../context/AppContext";
 
 function AccountNumber() {
   const {
     accountNumber,
     setAccountNumber,
     setAccountID,
-    setError,
-    navigate,
+    setModal,
     setPaymentAmount,
+    navigate,
+    setError,
   } = useContext(AppContext);
 
   function handleInputChange(e) {
@@ -25,6 +26,7 @@ function AccountNumber() {
     setAccountNumber(null);
     setAccountID(null);
     setPaymentAmount(null);
+    setModal(null);
   }, []);
 
   return (

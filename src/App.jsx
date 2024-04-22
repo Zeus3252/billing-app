@@ -7,7 +7,7 @@ import ErrorHandler from "./handlers/ErrorHandler";
 import PaymentComplete from "./components/PaymentComplete";
 import NavBar from "./components/NavBar";
 import TokenMissing from "./components/TokenMissing";
-import AppContext from "../context/AppContext";
+import AppContext from "./context/AppContext";
 import "./App.css";
 
 function App() {

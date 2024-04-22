@@ -1,17 +1,17 @@
 import { useContext } from "react";
 import { authenticateUser } from "../handlers/LoginHandler";
-import AppContext from "../../context/AppContext";
+import AppContext from "../context/AppContext";
 
 function Login() {
   sessionStorage.removeItem("token");
   const {
-    setUsername,
-    setPassword,
     username,
     password,
-    setError,
-    navigate,
+    setUsername,
+    setPassword,
     setIsAuthenticated,
+    navigate,
+    setError,
   } = useContext(AppContext);
 
   return (

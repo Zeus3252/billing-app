@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { PaymentHandler } from "../handlers/PaymentHandler";
 import { format } from "date-fns";
-import AppContext from "../../context/AppContext";
+import AppContext from "../context/AppContext";
 
 function Confirmation() {
   const {
@@ -9,9 +9,9 @@ function Confirmation() {
     setModal,
     paymentAmount,
     accountID,
+    setTransactionComplete,
     navigate,
     setError,
-    setTransactionComplete,
   } = useContext(AppContext);
 
   function getPaymentHandler() {
