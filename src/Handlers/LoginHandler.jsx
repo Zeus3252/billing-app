@@ -25,6 +25,7 @@ export async function authenticateUser(
       )}&j_username=${encodeURIComponent(username)}`,
       {
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json;charset=UTF-8",
         },
       }

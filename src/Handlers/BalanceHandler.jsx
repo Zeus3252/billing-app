@@ -9,6 +9,8 @@ export async function getBalance(accountID, setBalance, formatter) {
       {
         headers: {
           "X-API-Token": apiToken,
+          "Content-Type": "application/json",
+          Accept: "application/json;charset=UTF-8",
         },
       }
     );

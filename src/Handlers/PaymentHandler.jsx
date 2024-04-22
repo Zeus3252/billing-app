@@ -25,6 +25,7 @@ export async function PaymentHandler(
         headers: {
           "X-API-Token": apiToken,
           "Content-Type": "application/json",
+          Accept: "application/json;charset=UTF-8",
         },
         body: JSON.stringify(payload),
       }
