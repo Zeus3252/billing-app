@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import AppContext from "../context/AppContext";
 
-function TokenMissing() {
+function NavigationHandler() {
   const { setError, navigate } = useContext(AppContext);
 
   useEffect(() => {
@@ -14,4 +14,4 @@ function TokenMissing() {
   });
 }
 
-export default TokenMissing;
+export default NavigationHandler;

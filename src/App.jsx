@@ -6,7 +6,7 @@ import PaymentSubmit from "./components/PaymentSubmit";
 import ErrorHandler from "./handlers/ErrorHandler";
 import PaymentComplete from "./components/PaymentComplete";
 import NavBar from "./components/NavBar";
-import TokenMissing from "./components/TokenMissing";
+import NavigationHandler from "./handlers/NavigationHandler";
 import AppContext from "./context/AppContext";
 import "./App.css";
 
@@ -29,7 +29,7 @@ function App() {
         {transactionComplete && (
           <Route path="/paymentcomplete" element={<PaymentComplete />} />
         )}
-        <Route path="*" element={<TokenMissing />} />
+        <Route path="*" element={<NavigationHandler />} />
       </Routes>
       <ErrorHandler />
     </div>
