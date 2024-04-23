@@ -7,6 +7,7 @@ function AccountNumber() {
     accountNumber,
     setAccountNumber,
     setAccountID,
+    setAccountNumberEntered,
     setModal,
     setPaymentAmount,
     navigate,
@@ -61,6 +62,7 @@ function AccountNumber() {
                   accountNumber,
                   setAccountID,
                   navigate,
+                  setAccountNumberEntered,
                   setError
                 );
             }}

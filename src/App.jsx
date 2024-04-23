@@ -11,7 +11,8 @@ import AppContext from "./context/AppContext";
 import "./App.css";
 
 function App() {
-  const { isAuthenticated, transactionComplete } = useContext(AppContext);
+  const { isAuthenticated, transactionComplete, accountNumberEntered } =
+    useContext(AppContext);
   return (
     <div>
       <NavBar />
@@ -19,7 +20,9 @@ function App() {
         <Route path="/" element={<Login />} />
         {isAuthenticated && (
           <>
-            <Route path="/account" element={<AccountNumber />} />
+            {isAuthenticated && !accountNumberEntered && (
+              <Route path="/account" element={<AccountNumber />} />
+            )}
             <Route path="/payment" element={<PaymentSubmit />} />
           </>
         )}

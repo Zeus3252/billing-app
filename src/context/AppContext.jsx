@@ -6,6 +6,7 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [transactionComplete, setTransactionComplete] = useState(false);
+  const [accountNumberEntered, setAccountNumberEntered] = useState(false);
   const [accountNumber, setAccountNumber] = useState(null);
   const [accountID, setAccountID] = useState(null);
   const [username, setUsername] = useState(null);
@@ -32,6 +33,7 @@ export const AppProvider = ({ children }) => {
     if (location.pathname === "/") {
       setIsAuthenticated(false);
       setTransactionComplete(false);
+      setAccountNumberEntered(false);
       setAccountNumber(null);
       setAccountID(null);
       setUsername(null);
@@ -51,6 +53,8 @@ export const AppProvider = ({ children }) => {
         setIsAuthenticated,
         transactionComplete,
         setTransactionComplete,
+        accountNumberEntered,
+        setAccountNumberEntered,
         accountNumber,
         setAccountNumber,
         accountID,

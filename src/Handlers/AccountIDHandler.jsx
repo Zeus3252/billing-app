@@ -2,6 +2,7 @@ export async function AccountIDHandler(
   accountNumber,
   setAccountID,
   navigate,
+  setAccountNumberEntered,
   setError
 ) {
   setError("");
@@ -34,9 +35,8 @@ export async function AccountIDHandler(
     }
 
     setAccountID(result[0].id);
-    {
-      result.message != false && navigate("/payment");
-    }
+    setAccountNumberEntered(true);
+    navigate("/payment");
   } catch (error) {
     setError("Invalid Account Number associated with this account");
     return;
