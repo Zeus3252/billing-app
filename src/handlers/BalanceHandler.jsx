@@ -24,7 +24,7 @@ export async function getBalance(accountID, setBalance, formatter, setError) {
 
     setBalance(formatter.format(result.balance));
   } catch (error) {
-    console.error(error);
+    setError("Unable to connect. Please check your network settings.");
     return;
   }
 }

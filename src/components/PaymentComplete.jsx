@@ -19,10 +19,12 @@ function PaymentComplete() {
     setNewBalance(newBalance);
   }, []);
 
+  sessionStorage.removeItem("token");
+
   return (
     <div>
       <h1 className="lastText">Success</h1>
-      <h3 className="mediumText">
+      <h3 className="mediumText balanceText ">
         New Balance: {newBalance ? formatter.format(newBalance) : "Loading..."}
       </h3>
       <p className="mediumText">
@@ -33,6 +35,7 @@ function PaymentComplete() {
       </p>
       <div />
       <div>
+        <hr></hr>
         <p className="transactionCompleteMessage">
           Thank you for your transaction. For security reasons, it is
           recommended to close this tab.

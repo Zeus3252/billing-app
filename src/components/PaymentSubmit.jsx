@@ -30,11 +30,13 @@ const PaymentSubmit = () => {
   }
 
   function handleInputBlur(e) {
-    const cleanedInput = e.target.value.replace(/[^\d.]/g, "");
-    if (!isNaN(cleanedInput)) {
-      const formattedInput = formatter.format(parseFloat(cleanedInput));
-      e.target.value = formattedInput;
-      setPaymentAmount(formattedInput.replace(/[^\d.]/g, "")); //is this necessary?
+    if (e.target.value.length > 0) {
+      const cleanedInput = e.target.value.replace(/[^\d.]/g, "");
+      if (!isNaN(cleanedInput)) {
+        const formattedInput = formatter.format(parseFloat(cleanedInput));
+        e.target.value = formattedInput;
+        setPaymentAmount(formattedInput.replace(/[^\d.]/g, ""));
+      }
     }
   }
 

@@ -7,18 +7,6 @@ export async function authenticateUser(
   setPassword,
   setIsAuthenticated
 ) {
-  setError("");
-  const regex = /^[a-zA-Z0-9._\-!]+$/;
-  if (
-    !regex.test(username) ||
-    !regex.test(password) ||
-    username.length > 30 ||
-    password.length > 30
-  ) {
-    setError("Please enter credentials that meets the requirements.");
-    return;
-  }
-
   try {
     const response = await fetch(
       `https://sandbox-api.camvio.cloud/aboss-api/rest/v1/auth/login?j_password=${encodeURIComponent(

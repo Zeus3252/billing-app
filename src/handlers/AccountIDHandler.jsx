@@ -5,13 +5,6 @@ export async function AccountIDHandler(
   setAccountNumberEntered,
   setError
 ) {
-  setError("");
-  const regex = /^[0-9]*$/;
-  if (!regex.test(accountNumber) || accountNumber.length != 6) {
-    setError("Please enter number that meets the requirements.");
-    return;
-  }
-
   const apiToken = sessionStorage.getItem("token");
   try {
     const response = await fetch(

@@ -34,6 +34,16 @@ function AccountNumber() {
     setModal(null);
   }, []);
 
+  function isValidInput() {
+    setError("");
+    const regex = /^[0-9]*$/;
+    if (!regex.test(accountNumber) || accountNumber.length != 6) {
+      setError("Please enter number that meets the requirements.");
+      return false;
+    }
+    return true;
+  }
+
   return (
     <div>
       <div>
@@ -56,8 +66,8 @@ function AccountNumber() {
           <button
             className="nextButton"
             type="submit"
-            onClick={(e) => {
-              e.preventDefault(),
+            onClick={() => {
+              isValidInput() &&
                 AccountIDHandler(
                   accountNumber,
                   setAccountID,

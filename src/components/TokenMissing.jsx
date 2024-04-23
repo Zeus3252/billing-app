@@ -6,7 +6,7 @@ function TokenMissing() {
 
   useEffect(() => {
     sessionStorage.removeItem("token");
-    setError("Unauthorized token. Redirecting to sign in...");
+    setError("Authentication failed. Redirecting to sign in...");
 
     setTimeout(() => {
       navigate("/");
