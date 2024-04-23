@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { PaymentHandler } from "../handlers/PaymentHandler";
-import { format } from "date-fns";
 import AppContext from "../context/AppContext";
 
 function Confirmation() {
   const {
+    format,
     modal,
     setModal,
     paymentAmount,

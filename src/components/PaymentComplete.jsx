@@ -3,6 +3,7 @@ import AppContext from "../context/AppContext";
 
 function PaymentComplete() {
   const {
+    format,
     balance,
     paymentAmount,
     formatter,
@@ -19,11 +20,14 @@ function PaymentComplete() {
     setNewBalance(newBalance);
   }, []);
 
+  const GENERATED_REFERENCE = format(new Date(), "MM/dd/yy");
+
   sessionStorage.removeItem("token");
 
   return (
     <div>
       <h1 className="lastText">Success</h1>
+
       <h3 className="mediumText balanceText ">
         New Balance: {newBalance ? formatter.format(newBalance) : "Loading..."}
       </h3>
@@ -33,6 +37,7 @@ function PaymentComplete() {
           ? formatter.format(paymentAmount.replace(/[$,]/g, ""))
           : "Loading..."}
       </p>
+      <h2 className="mediumText">{GENERATED_REFERENCE}</h2>
       <div />
       <div>
         <hr></hr>

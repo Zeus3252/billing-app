@@ -1,9 +1,18 @@
 import { createContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  const [user, setUser] = useState({
+    isAuthenticated: false,
+    username: null,
+    password: null,
+    accountNumber: null,
+    accountID: null,
+  });
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [transactionComplete, setTransactionComplete] = useState(false);
   const [accountNumberEntered, setAccountNumberEntered] = useState(false);
@@ -74,6 +83,7 @@ export const AppProvider = ({ children }) => {
         modal,
         setModal,
         navigate,
+        format,
         formatter,
         location,
       }}

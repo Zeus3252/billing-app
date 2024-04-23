@@ -171,3 +171,23 @@ body {
   background-color: #ecf0f1;
   border-radius: 8px;
 }
+
+.date {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  color: var(--primary-color);
+  background-color: var(--neutral-light);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
