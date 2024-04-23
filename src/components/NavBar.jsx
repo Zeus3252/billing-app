@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AppContext from "../context/AppContext";
 
 function NavBar() {
-  const { format, setIsAuthenticated, navigate } = useContext(AppContext);
+  const { format, setStatus, navigate } = useContext(AppContext);
   const GENERATED_REFERENCE = format(new Date(), "EEEE, MMMM dd, yyyy");
 
   return (
@@ -12,7 +12,11 @@ function NavBar() {
         <button
           className="logoutButton"
           onClick={() => {
-            setIsAuthenticated(false), navigate("/");
+            setStatus((prevState) => ({
+              ...prevState,
+              isAuthenticated: false,
+            }));
+            navigate("/");
           }}
         >
           Logout

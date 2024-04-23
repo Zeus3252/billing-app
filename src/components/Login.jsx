@@ -4,24 +4,17 @@ import AppContext from "../context/AppContext";
 
 function Login() {
   sessionStorage.removeItem("token");
-  const {
-    username,
-    password,
-    setUsername,
-    setPassword,
-    setIsAuthenticated,
-    navigate,
-    setError,
-  } = useContext(AppContext);
+  const { user, setUser, setStatus, navigate, setError } =
+    useContext(AppContext);
 
   function isValidInput() {
     setError("");
     const regex = /^[a-zA-Z0-9._\-!]+$/;
     if (
-      !regex.test(username) ||
-      !regex.test(password) ||
-      username.length > 30 ||
-      password.length > 30
+      !regex.test(user.username) ||
+      !regex.test(user.password) ||
+      user.username.length > 30 ||
+      user.password.length > 30
     ) {
       setError("Please enter credentials that meets the requirements.");
       return false;
@@ -45,7 +38,12 @@ function Login() {
             type="text"
             placeholder="Username"
             maxLength={30}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) =>
+              setUser((prevState) => ({
+                ...prevState,
+                username: e.target.value,
+              }))
+            }
           />
           <br />
           <input
@@ -53,7 +51,12 @@ function Login() {
             type="password"
             placeholder="Password"
             maxLength={30}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setUser((prevState) => ({
+                ...prevState,
+                password: e.target.value,
+              }))
+            }
           />
         </form>
       </div>
@@ -62,16 +65,8 @@ function Login() {
           className="nextButton"
           type="submit"
           onClick={() => {
-            username && password && isValidInput();
-            authenticateUser(
-              username,
-              password,
-              setError,
-              navigate,
-              setUsername,
-              setPassword,
-              setIsAuthenticated
-            );
+            user.username && user.password && isValidInput();
+            authenticateUser(user, setUser, setStatus, navigate, setError);
           }}
         >
           Sign In

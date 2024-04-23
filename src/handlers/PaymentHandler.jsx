@@ -1,10 +1,10 @@
 export async function PaymentHandler(
-  format,
+  user,
+  setStatus,
   paymentAmount,
-  accountID,
+  format,
   navigate,
-  setError,
-  setTransactionComplete
+  setError
 ) {
   const apiToken = sessionStorage.getItem("token");
   const GENERATED_REFERENCE = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
@@ -19,7 +19,7 @@ export async function PaymentHandler(
   try {
     const response = await fetch(
       `https://sandbox-api.camvio.cloud/aboss-api/rest/v1/account/${encodeURIComponent(
-        accountID
+        user.accountID
       )}/payment/external`,
       {
         method: "POST",
@@ -39,7 +39,11 @@ export async function PaymentHandler(
       return;
     }
 
-    setTransactionComplete(true);
+    setStatus((prevState) => ({
+      ...prevState,
+      transactionComplete: true,
+    }));
+
     navigate("/paymentcomplete");
   } catch (error) {
     setError("Unable to connect. Please check your network settings.");

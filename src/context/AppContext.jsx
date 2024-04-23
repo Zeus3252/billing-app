@@ -6,28 +6,28 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState({
-    isAuthenticated: false,
     username: null,
     password: null,
     accountNumber: null,
     accountID: null,
   });
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [transactionComplete, setTransactionComplete] = useState(false);
-  const [accountNumberEntered, setAccountNumberEntered] = useState(false);
-  const [accountNumber, setAccountNumber] = useState(null);
-  const [accountID, setAccountID] = useState(null);
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [balance, setBalance] = useState(null);
-  const [paymentAmount, setPaymentAmount] = useState(null);
-  const [newBalance, setNewBalance] = useState(null);
+  const [status, setStatus] = useState({
+    isAuthenticated: false,
+    transactionComplete: false,
+    accountNumberEntered: false,
+  });
+
+  const [payInfo, setPayInfo] = useState({
+    balance: null,
+    paymentAmount: null,
+    newBalance: null,
+  });
+
   const [modal, setModal] = useState(null);
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -35,57 +35,86 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     const apiToken = sessionStorage.getItem("token");
-    setIsAuthenticated(!!apiToken);
+    setStatus((prevState) => ({
+      ...prevState,
+      isAuthenticated: !!apiToken,
+    }));
   }, []);
 
   useEffect(() => {
     if (location.pathname === "/") {
-      setIsAuthenticated(false);
-      setTransactionComplete(false);
-      setAccountNumberEntered(false);
-      setAccountNumber(null);
-      setAccountID(null);
-      setUsername(null);
-      setPassword(null);
-      setBalance(null);
-      setPaymentAmount(null);
-      setNewBalance(null);
+      setUser((prevState) => ({
+        ...prevState,
+        username: null,
+        password: null,
+        accountNumber: null,
+        accountID: null,
+      }));
+
+      setStatus((prevState) => ({
+        ...prevState,
+        isAuthenticated: false,
+        transactionComplete: false,
+        accountNumberEntered: false,
+      }));
+
+      setPayInfo((prevState) => ({
+        ...prevState,
+        balance: null,
+        paymentAmount: null,
+        newBalance: null,
+      }));
+
       setModal(null);
       setError(null);
     }
   }, [location]);
 
+  function resetAllInfo() {
+    setUser((prevState) => ({
+      ...prevState,
+      username: null,
+      password: null,
+      accountNumber: null,
+      accountID: null,
+    }));
+
+    setStatus((prevState) => ({
+      ...prevState,
+      isAuthenticated: false,
+      transactionComplete: false,
+      accountNumberEntered: false,
+    }));
+
+    setPayInfo((prevState) => ({
+      ...prevState,
+      balance: null,
+      paymentAmount: null,
+      newBalance: null,
+    }));
+
+    setModal(null);
+    setError(null);
+  }
+
   return (
     <AppContext.Provider
       value={{
-        isAuthenticated,
-        setIsAuthenticated,
-        transactionComplete,
-        setTransactionComplete,
-        accountNumberEntered,
-        setAccountNumberEntered,
-        accountNumber,
-        setAccountNumber,
-        accountID,
-        setAccountID,
-        username,
-        setUsername,
-        password,
-        setPassword,
-        balance,
-        setBalance,
-        paymentAmount,
-        setPaymentAmount,
-        newBalance,
-        setNewBalance,
-        error,
-        setError,
+        format,
+        user,
+        setUser,
+        status,
+        setStatus,
+        payInfo,
+        setPayInfo,
         modal,
         setModal,
-        navigate,
-        format,
-        formatter,
+        error,
+        setError,
         location,
+        navigate,
+        formatter,
+        resetAllInfo,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import Login from "./components/Login";
 import AccountNumber from "./components/AccountNumber";
@@ -11,22 +11,21 @@ import AppContext from "./context/AppContext";
 import "./App.css";
 
 function App() {
-  const { isAuthenticated, transactionComplete, accountNumberEntered } =
-    useContext(AppContext);
+  const { status } = useContext(AppContext);
   return (
     <div>
       <NavBar />
       <Routes>
         <Route path="/" element={<Login />} />
-        {isAuthenticated && (
+        {status.isAuthenticated && (
           <>
-            {isAuthenticated && !accountNumberEntered && (
+            {status.isAuthenticated && !status.accountNumberEntered && (
               <Route path="/account" element={<AccountNumber />} />
             )}
             <Route path="/payment" element={<PaymentSubmit />} />
           </>
         )}
-        {transactionComplete && (
+        {status.transactionComplete && (
           <Route path="/paymentcomplete" element={<PaymentComplete />} />
         )}
         <Route path="*" element={<NavigationHandler />} />

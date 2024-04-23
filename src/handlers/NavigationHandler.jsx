@@ -2,16 +2,17 @@ import { useContext, useEffect } from "react";
 import AppContext from "../context/AppContext";
 
 function NavigationHandler() {
-  const { setError, navigate } = useContext(AppContext);
+  const { setError, navigate, resetAllInfo } = useContext(AppContext);
 
   useEffect(() => {
     sessionStorage.removeItem("token");
-    setError("Authentication failed. Redirecting to sign in...");
+    resetAllInfo();
+    setError("Authentication expired. Redirecting to sign in...");
 
     setTimeout(() => {
       navigate("/");
     }, 3000);
-  });
+  }, []);
 }
 
 export default NavigationHandler;

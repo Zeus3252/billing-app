@@ -4,13 +4,13 @@ import AppContext from "../context/AppContext";
 
 function Confirmation() {
   const {
-    format,
+    user,
+    setStatus,
+    payInfo,
     modal,
     setModal,
-    paymentAmount,
-    accountID,
-    setTransactionComplete,
     navigate,
+    format,
     setError,
   } = useContext(AppContext);
 
@@ -18,12 +18,12 @@ function Confirmation() {
     {
       modal &&
         PaymentHandler(
+          user,
+          setStatus,
+          payInfo.paymentAmount,
           format,
-          paymentAmount,
-          accountID,
           navigate,
-          setError,
-          setTransactionComplete
+          setError
         ) &&
         setModal(false);
     }

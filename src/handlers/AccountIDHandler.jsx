@@ -1,8 +1,8 @@
 export async function AccountIDHandler(
   accountNumber,
-  setAccountID,
+  setUser,
+  setStatus,
   navigate,
-  setAccountNumberEntered,
   setError
 ) {
   const apiToken = sessionStorage.getItem("token");
@@ -22,16 +22,29 @@ export async function AccountIDHandler(
 
     const result = await response.json();
 
+    if (result.length === 0) {
+      setError("Invalid Account Number associated with this account");
+      return;
+    }
+
     if (!response.ok) {
       setError(result.error.message);
       return;
     }
 
-    setAccountID(result[0].id);
-    setAccountNumberEntered(true);
+    setUser((prevState) => ({
+      ...prevState,
+      accountID: result[0].id,
+    }));
+
+    setStatus((prevState) => ({
+      ...prevState,
+      accountNumberEntered: true,
+    }));
+
     navigate("/payment");
   } catch (error) {
-    setError("Invalid Account Number associated with this account");
+    setError("Unable to connect. Please check your network settings.");
     return;
   }
 }

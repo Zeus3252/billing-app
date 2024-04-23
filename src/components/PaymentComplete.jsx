@@ -2,22 +2,32 @@ import { useEffect, useContext } from "react";
 import AppContext from "../context/AppContext";
 
 function PaymentComplete() {
-  const {
-    format,
-    balance,
-    paymentAmount,
-    formatter,
-    newBalance,
-    setNewBalance,
-    setIsAuthenticated,
-  } = useContext(AppContext);
+  const { setUser, setStatus, payInfo, setPayInfo, format, formatter } =
+    useContext(AppContext);
 
   useEffect(() => {
-    setIsAuthenticated(false);
-    const cleanedBalance = parseFloat(balance.replace(/[$,]/g, ""));
-    const cleanedPayment = parseFloat(paymentAmount.replace(/[$,]/g, ""));
+    setStatus((prevState) => ({
+      ...prevState,
+      isAuthenticated: false,
+    }));
+
+    setUser((prevState) => ({
+      ...prevState,
+      accountID: null,
+      accountNumber: null,
+    }));
+
+    const cleanedBalance = parseFloat(payInfo.balance.replace(/[$,]/g, ""));
+    const cleanedPayment = parseFloat(
+      payInfo.paymentAmount.replace(/[$,]/g, "")
+    );
+
     const newBalance = cleanedBalance - cleanedPayment;
-    setNewBalance(newBalance);
+
+    setPayInfo((prevState) => ({
+      ...prevState,
+      newBalance: newBalance,
+    }));
   }, []);
 
   const GENERATED_REFERENCE = format(new Date(), "MM/dd/yy");
@@ -29,12 +39,15 @@ function PaymentComplete() {
       <h1 className="lastText">Success</h1>
 
       <h3 className="mediumText balanceText ">
-        New Balance: {newBalance ? formatter.format(newBalance) : "Loading..."}
+        New Balance:{" "}
+        {payInfo.newBalance
+          ? formatter.format(payInfo.newBalance)
+          : "Loading..."}
       </h3>
       <p className="mediumText">
         Payment Amount:{" "}
-        {paymentAmount
-          ? formatter.format(paymentAmount.replace(/[$,]/g, ""))
+        {payInfo.paymentAmount
+          ? formatter.format(payInfo.paymentAmount.replace(/[$,]/g, ""))
           : "Loading..."}
       </p>
       <h2 className="mediumText">{GENERATED_REFERENCE}</h2>

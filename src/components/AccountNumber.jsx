@@ -3,22 +3,17 @@ import { AccountIDHandler } from "../handlers/AccountIDHandler";
 import AppContext from "../context/AppContext";
 
 function AccountNumber() {
-  const {
-    accountNumber,
-    setAccountNumber,
-    setAccountID,
-    setAccountNumberEntered,
-    setModal,
-    setPaymentAmount,
-    navigate,
-    setError,
-  } = useContext(AppContext);
+  const { user, setUser, setStatus, setModal, navigate, setError } =
+    useContext(AppContext);
 
   function handleInputChange(e) {
     e.target.value = e.target.value.replace(/[^\d]/g, "");
     const cleanedInput = e.target.value;
     if (!isNaN(cleanedInput)) {
-      setAccountNumber(cleanedInput);
+      setUser((prevState) => ({
+        ...prevState,
+        accountNumber: cleanedInput,
+      }));
     }
   }
 
@@ -28,16 +23,18 @@ function AccountNumber() {
 
   useEffect(() => {
     setError("");
-    setAccountNumber(null);
-    setAccountID(null);
-    setPaymentAmount(null);
+    setUser((prevState) => ({
+      ...prevState,
+      accountNumber: null,
+      accountID: null,
+    }));
     setModal(null);
   }, []);
 
   function isValidInput() {
     setError("");
     const regex = /^[0-9]*$/;
-    if (!regex.test(accountNumber) || accountNumber.length != 6) {
+    if (!regex.test(user.accountNumber) || user.accountNumber.length != 6) {
       setError("Please enter number that meets the requirements.");
       return false;
     }
@@ -69,10 +66,10 @@ function AccountNumber() {
             onClick={() => {
               isValidInput() &&
                 AccountIDHandler(
-                  accountNumber,
-                  setAccountID,
+                  user.accountNumber,
+                  setUser,
+                  setStatus,
                   navigate,
-                  setAccountNumberEntered,
                   setError
                 );
             }}

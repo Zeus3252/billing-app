@@ -4,28 +4,22 @@ import AppContext from "../context/AppContext";
 import Confirmation from "./Confirmation";
 
 const PaymentSubmit = () => {
-  const {
-    accountID,
-    setPaymentAmount,
-    paymentAmount,
-    balance,
-    accountNumber,
-    setBalance,
-    setModal,
-    formatter,
-    setError,
-  } = useContext(AppContext);
+  const { user, payInfo, setPayInfo, setModal, formatter, setError } =
+    useContext(AppContext);
 
   useEffect(() => {
     setError("");
-    getBalance(accountID, setBalance, formatter, setError);
+    getBalance(user.accountID, setPayInfo, formatter, setError);
   }, []);
 
   function handleInputChange(e) {
     e.target.value = e.target.value.replace(/[^\d.]/g, "");
     const cleanedInput = e.target.value;
     if (!isNaN(cleanedInput)) {
-      setPaymentAmount(cleanedInput);
+      setPayInfo((prevState) => ({
+        ...prevState,
+        paymentAmount: cleanedInput,
+      }));
     }
   }
 
@@ -35,15 +29,19 @@ const PaymentSubmit = () => {
       if (!isNaN(cleanedInput)) {
         const formattedInput = formatter.format(parseFloat(cleanedInput));
         e.target.value = formattedInput;
-        setPaymentAmount(formattedInput.replace(/[^\d.]/g, ""));
+        setPayInfo((prevState) => ({
+          ...prevState,
+          paymentAmount: formattedInput.replace(/[^\d.]/g, ""),
+        }));
       }
     }
   }
 
   function handleConfirmButton() {
     {
-      if (paymentAmount != null) {
-        parseFloat(paymentAmount) < 10001 && parseFloat(paymentAmount) > 0
+      if (payInfo.paymentAmount != null) {
+        parseFloat(payInfo.paymentAmount) < 10001 &&
+        parseFloat(payInfo.paymentAmount) > 0
           ? (setError(""), setModal(true))
           : setError("Please enter a valid amount");
       }
@@ -52,7 +50,7 @@ const PaymentSubmit = () => {
 
   return (
     <div>
-      <h2 className="mediumText">Your Account Number: {accountNumber}</h2>
+      <h2 className="mediumText">Your Account Number: {user.accountNumber}</h2>
       <h3 className="smallText">Pay invoices below.</h3>
       <div>
         <form onSubmit={(e) => e.preventDefault()}>
@@ -82,7 +80,7 @@ const PaymentSubmit = () => {
       </div>
       <div>
         <p className="balanceText">
-          Balance: {balance ? `${balance}` : "Loading..."}
+          Balance: {payInfo.balance ? `${payInfo.balance}` : "Loading..."}
         </p>
       </div>
       <div>

@@ -1,17 +1,15 @@
 export async function authenticateUser(
-  username,
-  password,
-  setError,
+  user,
+  setUser,
+  setStatus,
   navigate,
-  setUsername,
-  setPassword,
-  setIsAuthenticated
+  setError
 ) {
   try {
     const response = await fetch(
       `https://sandbox-api.camvio.cloud/aboss-api/rest/v1/auth/login?j_password=${encodeURIComponent(
-        password
-      )}&j_username=${encodeURIComponent(username)}`,
+        user.password
+      )}&j_username=${encodeURIComponent(user.username)}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -28,9 +26,18 @@ export async function authenticateUser(
     }
 
     sessionStorage.setItem("token", result.token);
-    setIsAuthenticated(true);
-    setUsername("");
-    setPassword("");
+
+    setUser((prevState) => ({
+      ...prevState,
+      username: "",
+      password: "",
+    }));
+
+    setStatus((prevState) => ({
+      ...prevState,
+      isAuthenticated: true,
+    }));
+
     navigate("/account");
   } catch (error) {
     setError("Unable to connect. Please check your network settings.");

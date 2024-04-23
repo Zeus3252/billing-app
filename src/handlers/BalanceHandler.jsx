@@ -1,4 +1,4 @@
-export async function getBalance(accountID, setBalance, formatter, setError) {
+export async function getBalance(accountID, setPayInfo, formatter, setError) {
   const apiToken = sessionStorage.getItem("token");
 
   try {
@@ -22,7 +22,10 @@ export async function getBalance(accountID, setBalance, formatter, setError) {
       return;
     }
 
-    setBalance(formatter.format(result.balance));
+    setPayInfo((prevState) => ({
+      ...prevState,
+      balance: formatter.format(result.balance),
+    }));
   } catch (error) {
     setError("Unable to connect. Please check your network settings.");
     return;
