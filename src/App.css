@@ -42,7 +42,6 @@ body {
 .largeText {
   color: var(--primary-color);
   font-size: var(--font-size-2xl);
-  text-shadow: 0.5px 0.5px 0.5px #000000;
 }
 
 .lastText {
