@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import { getBalance } from "../handlers/BalanceHandler";
 import AppContext from "../context/AppContext";
 import Confirmation from "./Confirmation";
+import Logout from "./Logout";
 
 const PaymentSubmit = () => {
   const { user, payInfo, setPayInfo, setModal, formatter, setError } =
@@ -38,26 +39,32 @@ const PaymentSubmit = () => {
   }
 
   function handleConfirmButton() {
-    {
-      if (payInfo.paymentAmount != null) {
-        parseFloat(payInfo.paymentAmount) < 10001 &&
-        parseFloat(payInfo.paymentAmount) > 0
-          ? (setError(""), setModal(true))
-          : setError("Please enter a valid amount");
-      }
+    if (
+      payInfo.paymentAmount != null &&
+      parseFloat(payInfo.paymentAmount) < 10001 &&
+      parseFloat(payInfo.paymentAmount) > 0
+    ) {
+      setError(""), setModal(true);
+    } else {
+      setError("Please enter a valid amount");
     }
   }
 
   return (
-    <div>
+    <div className="checkout">
       <h2 className="mediumText">Your Account Number: {user.accountNumber}</h2>
-      <h3 className="smallText">Pay invoices below.</h3>
+      <h3 className="smallerText">
+        Pay invoices below. Click button to confirm.
+      </h3>
+
       <div>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form noValidate onSubmit={(e) => e.preventDefault()}>
           <input
+            required
             className="field"
             type="text"
             placeholder="Amount (e.g., 50.40, $100)"
+            pattern="^(?=.*\$)(?=.*\.)[0-9$.]{3,}$"
             maxLength={16}
             onChange={(e) => {
               handleInputChange(e);
@@ -67,6 +74,7 @@ const PaymentSubmit = () => {
             }}
           />
         </form>
+
         <div>
           <button
             className="nextButton"
@@ -74,7 +82,7 @@ const PaymentSubmit = () => {
               handleConfirmButton();
             }}
           >
-            Make Payment
+            Make Payment &#10148;
           </button>
         </div>
       </div>
@@ -85,11 +93,12 @@ const PaymentSubmit = () => {
       </div>
       <div>
         <hr></hr>
-        <p className="help">Maximum of $10,000 allowed per transfer.</p>
+        <p className="smallerText">Maximum of $10,000 allowed per transfer.</p>
       </div>
       <div>
         <Confirmation />
       </div>
+      <Logout />
     </div>
   );
 };

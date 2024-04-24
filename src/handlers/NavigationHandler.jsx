@@ -5,9 +5,8 @@ function NavigationHandler() {
   const { setError, navigate, resetAllInfo } = useContext(AppContext);
 
   useEffect(() => {
-    sessionStorage.removeItem("token");
     resetAllInfo();
-    setError("Authentication expired. Redirecting to sign in...");
+    setError("Authentication invalid. Redirecting to sign in...");
 
     setTimeout(() => {
       navigate("/");

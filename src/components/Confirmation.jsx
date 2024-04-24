@@ -34,9 +34,10 @@ function Confirmation() {
       <div className="modalBody">
         <div>
           <h3 className="mediumText">Are you sure?</h3>
-          <p className="smallText">
+          <p className="smallerText">
             Once this transfer is made, it cannot be cancelled.
           </p>
+          <br />
         </div>
         <div>
           <button

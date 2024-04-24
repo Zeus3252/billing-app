@@ -5,7 +5,7 @@ import AccountNumber from "./components/AccountNumber";
 import PaymentSubmit from "./components/PaymentSubmit";
 import ErrorHandler from "./handlers/ErrorHandler";
 import PaymentComplete from "./components/PaymentComplete";
-import NavBar from "./components/NavBar";
+import Date from "./components/Date";
 import NavigationHandler from "./handlers/NavigationHandler";
 import AppContext from "./context/AppContext";
 import "./App.css";
@@ -14,7 +14,7 @@ function App() {
   const { status } = useContext(AppContext);
   return (
     <div>
-      <NavBar />
+      <Date />
       <Routes>
         <Route path="/" element={<Login />} />
         {status.isAuthenticated && (

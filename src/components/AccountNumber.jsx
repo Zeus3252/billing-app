@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { AccountIDHandler } from "../handlers/AccountIDHandler";
 import AppContext from "../context/AppContext";
+import Logout from "./Logout";
 
 function AccountNumber() {
   const { user, setUser, setStatus, setModal, navigate, setError } =
@@ -41,18 +42,38 @@ function AccountNumber() {
     return true;
   }
 
+  function submitForm() {
+    isValidInput() &&
+      AccountIDHandler(
+        user.accountNumber,
+        setUser,
+        setStatus,
+        navigate,
+        setError
+      );
+  }
+
+  function handleEnterPress(e) {
+    if (e.key === "Enter") {
+      submitForm();
+    }
+  }
+
   return (
     <div>
       <div>
         <h1 className="largeText">Enter Account Number</h1>
       </div>
       <div>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form noValidate onSubmit={(e) => e.preventDefault()}>
           <input
+            required
             className="field"
             type="text"
             placeholder="Account Number"
+            pattern="^\d{6}$"
             maxLength={6}
+            onKeyDown={(e) => handleEnterPress(e)}
             onChange={(e) => {
               handleInputChange(e);
             }}
@@ -64,23 +85,18 @@ function AccountNumber() {
             className="nextButton"
             type="submit"
             onClick={() => {
-              isValidInput() &&
-                AccountIDHandler(
-                  user.accountNumber,
-                  setUser,
-                  setStatus,
-                  navigate,
-                  setError
-                );
+              submitForm();
             }}
           >
-            Submit
+            Submit &#10148;
           </button>
         </div>
       </div>
       <div>
-        <p className="help">Must be 6 digits</p>
+        <br />
+        <p className="smallerText">Must be 6 digits</p>
       </div>
+      <Logout />
     </div>
   );
 }

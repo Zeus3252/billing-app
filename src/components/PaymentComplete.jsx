@@ -1,5 +1,6 @@
 import { useEffect, useContext } from "react";
 import AppContext from "../context/AppContext";
+import Logout from "./Logout";
 
 function PaymentComplete() {
   const { setUser, setStatus, payInfo, setPayInfo, format, formatter } =
@@ -59,6 +60,7 @@ function PaymentComplete() {
           recommended to close this tab.
         </p>
       </div>
+      <Logout />
     </div>
   );
 }

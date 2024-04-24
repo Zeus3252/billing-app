@@ -1,11 +1,14 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { authenticateUser } from "../handlers/LoginHandler";
 import AppContext from "../context/AppContext";
 
 function Login() {
-  sessionStorage.removeItem("token");
-  const { user, setUser, setStatus, navigate, setError } =
+  const { user, setUser, setStatus, navigate, setError, resetAllInfo } =
     useContext(AppContext);
+
+  useEffect(() => {
+    resetAllInfo();
+  }, []);
 
   function isValidInput() {
     setError("");
@@ -22,6 +25,23 @@ function Login() {
     return true;
   }
 
+  function submitForm() {
+    user.username &&
+      user.password &&
+      isValidInput() &&
+      authenticateUser(user, setUser, setStatus, navigate, setError);
+  }
+
+  function handleEnterPress(e) {
+    if (e.key === "Enter") {
+      submitForm();
+    }
+  }
+
+  function handleOnBlur(e) {
+    e.target.value = e.target.value.replace(/['";<>\\]/g, "");
+  }
+
   return (
     <div>
       <div>
@@ -29,15 +49,20 @@ function Login() {
       </div>
       <div>
         <form
+          noValidate
           onSubmit={(e) => {
             e.preventDefault();
           }}
+          onBlur={(e) => handleOnBlur(e)}
         >
           <input
+            required
             className="field"
             type="text"
             placeholder="Username"
+            pattern="[A-Za-z0-9._\-!]*"
             maxLength={30}
+            onKeyDown={(e) => handleEnterPress(e)}
             onChange={(e) =>
               setUser((prevState) => ({
                 ...prevState,
@@ -47,10 +72,13 @@ function Login() {
           />
           <br />
           <input
+            required
             className="field"
             type="password"
             placeholder="Password"
+            pattern="[A-Za-z0-9._\-!]*"
             maxLength={30}
+            onKeyDown={(e) => handleEnterPress(e)}
             onChange={(e) =>
               setUser((prevState) => ({
                 ...prevState,
@@ -65,20 +93,26 @@ function Login() {
           className="nextButton"
           type="submit"
           onClick={() => {
-            user.username && user.password && isValidInput();
-            authenticateUser(user, setUser, setStatus, navigate, setError);
+            submitForm();
           }}
         >
-          Sign In
+          Sign In &#10148;
         </button>
       </div>
-      <div>
-        <p className="help">
-          Welcome to our secure payment gateway. This streamlined process allows
-          you to pay your invoices swiftly and securely. Please note, you can
-          cancel the process at any time by logging out. Additionally, for your
-          security, if you navigate back at any point, you will be required to
-          log in again.
+      <div className="smallText">
+        <p>
+          Welcome to our secure payment gateway. Please note, you can cancel the
+          process at any time by logging out. For your security, if you navigate
+          back or refresh at any point, you will be required to log in again.
+        </p>
+        <p>Username and password each can be up to 30 characters long.</p>
+        <p>
+          May contain letters (A-Z, a-z), numbers (0-9), periods (.),
+          underscores (_), hyphens (-), or exclamation marks (!).
+        </p>
+        <p>
+          Invalid characters will be automatically removed when you move away
+          from the input field.
         </p>
       </div>
     </div>

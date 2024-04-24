@@ -41,36 +41,9 @@ export const AppProvider = ({ children }) => {
     }));
   }, []);
 
-  useEffect(() => {
-    if (location.pathname === "/") {
-      setUser((prevState) => ({
-        ...prevState,
-        username: null,
-        password: null,
-        accountNumber: null,
-        accountID: null,
-      }));
-
-      setStatus((prevState) => ({
-        ...prevState,
-        isAuthenticated: false,
-        transactionComplete: false,
-        accountNumberEntered: false,
-      }));
-
-      setPayInfo((prevState) => ({
-        ...prevState,
-        balance: null,
-        paymentAmount: null,
-        newBalance: null,
-      }));
-
-      setModal(null);
-      setError(null);
-    }
-  }, [location]);
-
   function resetAllInfo() {
+    sessionStorage.removeItem("token");
+
     setUser((prevState) => ({
       ...prevState,
       username: null,
