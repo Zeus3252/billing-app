@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       <Date />
-      <Routes>
+      <Routes basename="/">
         <Route path="/" element={<Login />} />
         {status.isAuthenticated && (
           <>
