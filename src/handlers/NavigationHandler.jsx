@@ -9,7 +9,7 @@ function NavigationHandler() {
     setError("Authentication invalid. Redirecting to sign in...");
 
     setTimeout(() => {
-      navigate("/");
+      navigate("/billing-app");
     }, 3000);
   }, []);
 }

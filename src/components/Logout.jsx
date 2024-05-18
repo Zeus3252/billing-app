@@ -10,7 +10,7 @@ function Logout() {
         className="logoutButton"
         onClick={() => {
           resetAllInfo();
-          navigate("/");
+          navigate("/billing-app");
         }}
       >
         Logout

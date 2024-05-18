@@ -15,8 +15,8 @@ function App() {
   return (
     <div>
       <Date />
-      <Routes basename="/">
-        <Route path="/" element={<Login />} />
+      <Routes>
+        <Route path="/billing-app" element={<Login />} />
         {status.isAuthenticated && (
           <>
             {status.isAuthenticated && !status.accountNumberEntered && (
