@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Router basename="/billing-app">
+    <Router basename="/billing-app/">
       <AppProvider>
         <App />
       </AppProvider>
