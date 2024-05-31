@@ -6,9 +6,9 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState({
-    username: null,
-    password: null,
-    accountNumber: null,
+    username: "react.developer",
+    password: "abcABC123!",
+    accountNumber: "900220",
     accountID: null,
   });
 
@@ -46,9 +46,9 @@ export const AppProvider = ({ children }) => {
 
     setUser((prevState) => ({
       ...prevState,
-      username: null,
-      password: null,
-      accountNumber: null,
+      username: "react.developer",
+      password: "abcABC123!",
+      accountNumber: "900220",
       accountID: null,
     }));
 

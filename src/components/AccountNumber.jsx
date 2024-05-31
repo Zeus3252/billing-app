@@ -26,7 +26,7 @@ function AccountNumber() {
     setError("");
     setUser((prevState) => ({
       ...prevState,
-      accountNumber: null,
+      //accountNumber: null,
       accountID: null,
     }));
     setModal(null);
@@ -72,6 +72,7 @@ function AccountNumber() {
             type="text"
             placeholder="Account Number"
             pattern="^\d{6}$"
+            value="900220"
             maxLength={6}
             onKeyDown={(e) => handleEnterPress(e)}
             onChange={(e) => {

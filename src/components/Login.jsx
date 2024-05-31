@@ -61,6 +61,7 @@ function Login() {
             type="text"
             placeholder="Username"
             pattern="[A-Za-z0-9._\-!]*"
+            value="react.developer"
             maxLength={30}
             onKeyDown={(e) => handleEnterPress(e)}
             onChange={(e) =>
@@ -77,6 +78,7 @@ function Login() {
             type="password"
             placeholder="Password"
             pattern="[A-Za-z0-9._\-!]*"
+            value="abcABC123!"
             maxLength={30}
             onKeyDown={(e) => handleEnterPress(e)}
             onChange={(e) =>
